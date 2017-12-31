@@ -11,6 +11,11 @@
   "schemes" : [ "https" ],
   "consumes" : [ "application/json" ],
   "produces" : [ "application/json" ],
+  "security" : [ {
+    "HTTP_BASIC" : [ ]
+  }, {
+    "Basic authentication" : [ ]
+  } ],
   "paths" : {
     "/contacts/" : {
       "get" : {
@@ -404,6 +409,13 @@
     "HTTP_BASIC" : {
       "description" : "All GET methods are public, meaning that *you can read all the data*. Write operations require authentication and therefore are forbidden to the general public.",
       "type" : "basic"
+    },
+    "Basic authentication" : {
+      "type" : "basic"
+    },
+    "bsik" : {
+      "description" : "Password",
+      "type" : "basic"
     }
   },
   "definitions" : {
@@ -434,8 +446,8 @@
       "properties" : {
         "id" : {
           "type" : "string",
-          "description" : "Auto-generated primary key field",
-          "example" : "0e8ffb10-ad98-11e6-bf2e-47644ada7c0f"
+          "example" : "0e8ffb10-ad98-11e6-bf2e-47644ada7c0f",
+          "description" : "Auto-generated primary key field"
         },
         "firstName" : {
           "type" : "string",
@@ -463,8 +475,8 @@
         },
         "company" : {
           "type" : "string",
-          "description" : "This property is a reference to a Company",
-          "example" : "0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f"
+          "example" : "0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f",
+          "description" : "This property is a reference to a Company"
         }
       },
       "description" : "A representation of a Contact.",
@@ -483,14 +495,13 @@
         },
         "tags" : {
           "type" : "array",
+          "example" : "[\"brewery\", \"beer\", \"ale\"]",
           "items" : {
             "type" : "string",
             "pattern" : "[a-zA-Z]+"
-          },
-          "example" : "[\"brewery\", \"beer\", \"ale\"]"
+          }
         },
         "address" : {
-          "required" : [ "city", "street", "zipcode" ],
           "type" : "object",
           "properties" : {
             "street" : {
@@ -503,7 +514,8 @@
               "type" : "string",
               "pattern" : "[0-9]*"
             }
-          }
+          },
+          "required" : [ "city", "street", "zipcode" ]
         }
       },
       "description" : "A representation of a Company.",
